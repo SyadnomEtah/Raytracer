@@ -1,13 +1,11 @@
 #pragma once
 
+//External includes
 #include <cmath>
 #include <limits>
 #include <memory>
 #include <iostream>
 #include <cstdlib>
-
-#include "ray.h"
-#include "vec3.h"
 
 //Constants
 const double infinity = std::numeric_limits<double>::infinity();
@@ -35,3 +33,7 @@ inline double clamp(double x, double min, double max)
 	if (x > max) return max;
 	return x;
 }
+
+//Internal includes
+#include "ray.h"
+#include "vec3.h"
