@@ -1,7 +1,6 @@
 #pragma once
 
-#include <cmath>
-#include <iostream>
+#include "rtpch.h"
 
 class vec3
 {

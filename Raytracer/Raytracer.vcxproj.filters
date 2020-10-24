@@ -18,15 +18,39 @@
     <ClInclude Include="src\vec3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\color.h">
+    <ClInclude Include="src\ray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ray.h">
+    <ClInclude Include="src\hittable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sphere.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hittable_list.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rtpch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\color.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Raytracer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sphere.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hittable_list.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ray.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rtpch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
