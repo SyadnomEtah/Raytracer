@@ -51,7 +51,7 @@ int main()
 	world.add(std::make_shared<sphere>(point3( 1.0,    0.0, -1.0),   0.5, material_right));
 #pragma endregion
 
-	camera cam;
+	camera cam(point3(-2, 2, 1), point3(0, 0, 1), vec3(0, 1, 0), 90.0, aspect_ratio);
 
 #pragma region Render
 	std::cout << "P3\n" << image_width << ' ' << image_heigth << "\n255\n";
