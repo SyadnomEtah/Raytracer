@@ -7,6 +7,7 @@ lambertian::lambertian(const color& a)
 
 bool lambertian::scatter(const ray& r_in, const hit_record& rec, color& attenuation, ray& scattered) const
 {
+	//Diffuse scattering
 	vec3 scatter_direction = rec.normal + random_unit_vector();
 	scattered = ray(rec.p, scatter_direction);
 	attenuation = albedo;
@@ -20,6 +21,7 @@ metal::metal(const color& a, double f)
 
 bool metal::scatter(const ray& r_in, const hit_record& rec, color& attenuation, ray& scattered) const
 {
+	//Reflective surface scattering with fuzz/roughness
 	vec3 reflected = reflect(unit_vector(r_in.direction()), rec.normal);
 	scattered = ray(rec.p, reflected + fuzz * random_in_unit_sphere());
 	attenuation = albedo;
@@ -33,9 +35,11 @@ dielectric::dielectric(double index_of_refraction)
 
 bool dielectric::scatter(const ray& r_in, const hit_record& rec, color& attenuation, ray& scattered) const
 {
+	//Dielectric/glass-like scattering
 	attenuation = color(1.0, 1.0, 1.0);
 	double refraction_ratio = rec.front_face ? 1.0 / ir : ir;
 
+	//Check if ray should be reflected or rafracted based on incoming angle
 	vec3 unit_direction = unit_vector(r_in.direction());
 	double cos_theta = fmin(dot(-unit_direction, rec.normal), 1.0);
 	double sin_theta = sqrt(1.0 - cos_theta * cos_theta);

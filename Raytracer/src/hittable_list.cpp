@@ -27,6 +27,7 @@ bool hittable_list::hit(const ray& r, double t_min, double t_max, hit_record& re
 
 	for (const auto& object : objects)
 	{
+		//Check if the ray hits any objects and for each hit select the closest one
 		if (object->hit(r, t_min, closest_so_far, temp_rec))
 		{
 			hit_anything = true;

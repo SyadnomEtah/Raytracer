@@ -41,6 +41,7 @@ public:
 private:
 	static double reflectance(double cosine, double ref_idx)
 	{
+		//Approximation of reflectance
 		auto r0 = (1 - ref_idx) / (1 + ref_idx);
 		r0 = r0 * r0;
 

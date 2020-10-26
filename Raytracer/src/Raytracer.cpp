@@ -10,18 +10,24 @@ color ray_color(const ray& r, const hittable& world, int depth)
 {
 	hit_record rec;
 
+	//Recurrence break condition
 	if (depth <= 0)
 		return color(0, 0, 0);
 
+	//Check if ray hits any objects
 	if (world.hit(r, 0.001, infinity, rec))
 	{
 		ray scattered;
 		color attenuation;
+
+		//Check if ray can scatter of the hit object's surface
 		if (rec.mat_ptr->scatter(r, rec, attenuation, scattered))
 			return attenuation * ray_color(scattered, world, depth - 1);
+
 		return color(0, 0, 0);
 	}
 
+	//Nothing hit - return background color
 	vec3 unit_direction = unit_vector(r.direction());
 	auto t = 0.5 * (unit_direction.y() + 1.0);
 	return (1.0 - t) * color(1.0, 1.0, 1.0) + t * color(0.5, 0.7, 1.0);
@@ -86,12 +92,12 @@ int main()
 	const auto aspect_ratio = 3.0 / 2.0;
 	const int image_width = 400;
 	const int image_heigth = static_cast<int>(image_width / aspect_ratio);
-	const int samples_per_pixels = 500;
-	const int max_depth = 5;
 #pragma endregion
 
+	//Generate the world
 	auto world = random_scene();
 
+#pragma region Camera setup
 	point3 lookfrom(13, 2, 3);
 	point3 lookat(0, 0, 0);
 	vec3 vup(0, 1, 0);
@@ -100,8 +106,13 @@ int main()
 	auto dist_to_focus = 10.0;
 
 	camera cam(lookfrom, lookat, vup, fov, aspect_ratio, aperture, dist_to_focus);
+#pragma endregion
+
 
 #pragma region Render
+	const int samples_per_pixels = 500;
+	const int max_depth = 5;
+
 	std::cout << "P3\n" << image_width << ' ' << image_heigth << "\n255\n";
 
 	for (int j = image_heigth; j >= 0; j--)
@@ -111,14 +122,15 @@ int main()
 		{
 			color pixel_color(0, 0, 0);
 
+			//Antialiasing - accumulate color via multiple raycasts
 			for (int s = 0; s < samples_per_pixels; s++)
 			{
 				auto u = (i + random_double()) / (image_width - 1);
 				auto v = (j + random_double()) / (image_heigth - 1);
 				ray r = cam.get_ray(u, v);
 				pixel_color += ray_color(r, world, max_depth);
-
 			}
+
 			write_color(std::cout, pixel_color, samples_per_pixels);
 		}
 	}
