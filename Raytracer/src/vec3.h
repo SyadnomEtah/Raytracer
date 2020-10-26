@@ -88,7 +88,6 @@ inline vec3 random_in_unit_sphere()
 	while (true)
 	{
 		auto p = vec3::random(-1, 1);
-
 		if (p.length_squared() >= 1)
 			continue;
 		return p;
@@ -110,6 +109,16 @@ inline vec3 random_in_hemisphere(const vec3& normal)
 		return in_unit_sphere;
 	else
 		return -in_unit_sphere;
+}
+inline vec3 random_in_unit_disk()
+{
+	while (true)
+	{
+		auto p = vec3(random_double(-1, 1), random_double(-1, 1), 0);
+		if (p.length_squared() >= 1)
+			continue;
+		return p;
+	}
 }
 
 inline vec3 reflect(const vec3& v, const vec3& n)
